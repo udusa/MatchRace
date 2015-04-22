@@ -84,18 +84,18 @@ public class LoginActivity extends Activity {
 		sp = getSharedPreferences(C.PREFS_USER, MODE_PRIVATE); 
 		String fullUserName = sp.getString(C.PREFS_FULL_USER_NAME, "Anonymous");
 		if (fullUserName != null && !fullUserName.equals("Anonymous")) {
-			Intent intent = new Intent(LoginActivity.this, MenuActivity.class);
 			String user = fullUserName.split("_")[0];
 			String pass = fullUserName.split("_")[1];
 			String event = fullUserName.split("_")[2];
-			Toast.makeText(this, "Hello " + user.substring(6) + "!", Toast.LENGTH_SHORT).show();
-			intent.putExtra(C.USER_NAME, user);
-			intent.putExtra(C.USER_PASS, pass);
-			intent.putExtra(C.EVENT_NUM, event);
-			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-			startActivity(intent);
-			finish();
-		}
+                Toast.makeText(this, "Hello " + user.substring(6) + "!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(LoginActivity.this, MenuActivity.class);
+                intent.putExtra(C.USER_NAME, user);
+                intent.putExtra(C.USER_PASS, pass);
+                intent.putExtra(C.EVENT_NUM, event);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+            }
 	}
 
 	/**
@@ -285,8 +285,10 @@ public class LoginActivity extends Activity {
 			String name = "UserLoginTask";
 			try {
 				// Gets the user data from DB and checks if the user's data match.
-				JSONObject json = JsonReader.readJsonFromUrl(C.URL_CLIENTS_TABLE + "&Information=" + mUser + "_" + mPassword + "_" + mEvent);
-				JSONArray jsonArray = json.getJSONArray("positions");
+			   	//JSONObject json = JsonReader.readJsonFromUrl(C.URL_CLIENTS_TABLE + "&Information=" + mUser + "_" + mPassword + "_" + mEvent);
+                JSONObject json = JsonReader.readJsonFromUrl(C.URL_SIGNIN_CLIENT + "&User=" + mUser + "&Pass=" + mPassword + "&Event=" + mEvent);
+               // JSONArray jsonArray = json.getJSONArray("positions");
+                JSONArray jsonArray = json.getJSONArray("users");
 				if (jsonArray.length() > 0) {
 					JSONObject jsonObj = (JSONObject) jsonArray.get(0);
 					if (jsonObj.getString("event").equals(mEvent))
@@ -392,5 +394,6 @@ public class LoginActivity extends Activity {
 			showProgress(false);
 		}
 	}
+
 
 }

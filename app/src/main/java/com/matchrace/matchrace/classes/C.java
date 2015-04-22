@@ -35,6 +35,7 @@ public class C {
 
     //My DB
     public static final String URL_INSERT_CLIENT = "http://10.0.2.2/androidRegister.php?Table=clients";
+    public static final String URL_SIGNIN_CLIENT = "http://10.0.2.2/androidSignIn.php?TableUsers=clients";//&TableEvents=events";
 
 	// Data constants.
 	public static final String APP_DIR = Environment.getExternalStorageDirectory().getPath() + "/BlindMatchRace/";
