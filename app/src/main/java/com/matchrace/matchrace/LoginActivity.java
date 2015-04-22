@@ -308,6 +308,7 @@ public class LoginActivity extends Activity {
 		@Override
 		protected void onPostExecute(final Boolean success) {
 			mAuthTask = null;
+            boolean registred=true;
 			showProgress(false);
 
 			if (success) {
@@ -315,6 +316,7 @@ public class LoginActivity extends Activity {
 				if (adminRequest) {
 					adminRequest = false;
 					intent = new Intent(LoginActivity.this, AdminActivity.class);
+
 				}
 				else if (registerRequest) {
 					registerRequest = false;
@@ -323,16 +325,33 @@ public class LoginActivity extends Activity {
 					SendDataHThread thread = new SendDataHThread("CreateNewUser");
 					thread.setPriority(Process.THREAD_PRIORITY_BACKGROUND);
 
-					thread.setFullUserName(mUser + "_" + mPassword + "_" + mEvent);
+					//thread.setFullUserName(mUser + "_" + mPassword + "_" + mEvent); REMOVED
+
 					thread.setEvent(mEvent);
 					thread.setLat("0");
 					thread.setLng("0");
 					thread.setSpeed("0");
 					thread.setBearing("0");
 
+                    //ADDED
+                    thread.setUser(mUser);
+                    thread.setPass(mPassword);
+                    thread.setLogin(true);
+
 					thread.start();
 
-					intent = new Intent(LoginActivity.this, MenuActivity.class);
+                    try {
+                        thread.join();
+                    } catch (InterruptedException e) {
+                        //e.printStackTrace();
+                        registred = false;
+                    }
+                    intent = new Intent(LoginActivity.this, MenuActivity.class);
+                    if(!thread.getRegisterSucess()) {
+                        registred = false;
+                        intent=null;
+                    }
+
 				}
 				else {
 					intent = new Intent(LoginActivity.this, MenuActivity.class);
@@ -345,15 +364,22 @@ public class LoginActivity extends Activity {
 					spEdit.putString(C.PREFS_FULL_USER_NAME, fullUserName);
 					spEdit.commit();
 				}
-
-				intent.putExtra(C.USER_NAME, mUser);
-				intent.putExtra(C.USER_PASS, mPassword);
-				intent.putExtra(C.EVENT_NUM, mEvent);
-				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-				startActivity(intent);
-				finish();
+                if(registred){
+                    intent.putExtra(C.USER_NAME, mUser);
+                    intent.putExtra(C.USER_PASS, mPassword);
+                    intent.putExtra(C.EVENT_NUM, mEvent);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    finish();
+                }else{
+                    etUser.setError(getString(R.string.error_incorrect_pass_event));
+                    etPass.setError(getString(R.string.error_incorrect_pass_event));
+                    etEvent.setError(getString(R.string.error_incorrect_pass_event));
+                    etEvent.requestFocus();
+                }
 			}
 			else {
+                etUser.setError(getString(R.string.error_incorrect_pass_event));
 				etPass.setError(getString(R.string.error_incorrect_pass_event));
 				etEvent.setError(getString(R.string.error_incorrect_pass_event));
 				etEvent.requestFocus();

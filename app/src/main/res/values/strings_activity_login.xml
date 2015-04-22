@@ -14,7 +14,7 @@
     <string name="error_invalid_user">This user name have spacing</string>
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_invalid_event">Must be a number</string>
-    <string name="error_incorrect_pass_event">The password or the event is incorrect</string>
+    <string name="error_incorrect_pass_event">The password or the event or the username is incorrect</string>
     <string name="error_field_required">This field is required</string>
 
 </resources>

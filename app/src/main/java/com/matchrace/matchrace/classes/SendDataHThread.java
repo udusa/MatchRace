@@ -20,11 +20,19 @@ public class SendDataHThread extends HandlerThread {
 
 	private HttpURLConnection urlConnection;
 	private String lat, lng, speed, bearing, event;
-	private String name, fullUserName;
+	private String name,fullUserName;
+    //ADDED
+    private String user,pass;
+    private boolean login,registerSucced=false;
+    private String phpUrl;
 
 	public SendDataHThread(String name) {
 		super(name);
 		this.name = name;
+        switch (name){
+            case "CreateNewUser" : phpUrl = C.URL_INSERT_CLIENT; break;
+            case "SendGPS" : phpUrl = "";
+        }
 	}
 
 	@Override
@@ -37,8 +45,9 @@ public class SendDataHThread extends HandlerThread {
 	 */
 	private void httpConnSendData() {
 		try {
-			URL url = new URL(C.URL_INSERT_CLIENT + "&Latitude=" + lat +"&Longitude=" + lng +"&Pressure="+ speed + "&Azimuth="+ bearing + "&Bearing=" + bearing + "&Information=" + fullUserName + "&Event=" + event);
-			urlConnection = (HttpURLConnection) url.openConnection();
+			//URL url = new URL(C.URL_INSERT_CLIENT + "&Latitude=" + lat +"&Longitude=" + lng +"&Speed="+ speed + "&Azimuth="+ bearing + "&Bearing=" + bearing + "&Information=" + fullUserName + "&Event=" + event);
+            URL url = new URL(phpUrl + "&User=" +user+ "&Pass=" + pass + "&Login=" + login + "&Latitude=" + lat +"&Longitude=" + lng +"&Speed="+ speed + "&Azimuth="+ bearing + "&Bearing=" + bearing  + "&Event=" + event);
+            urlConnection = (HttpURLConnection) url.openConnection();
 			try {
 				InputStream in = new BufferedInputStream(urlConnection.getInputStream());
 				BufferedReader br = new BufferedReader(new InputStreamReader(in));
@@ -48,6 +57,7 @@ public class SendDataHThread extends HandlerThread {
 				}
 				else { // Data sent.
 					Log.i(name, "OK!");
+                    registerSucced=true;
 				}
 			}
 			catch (IOException e) {
@@ -112,5 +122,29 @@ public class SendDataHThread extends HandlerThread {
 	public void setEvent(String event) {
 		this.event = event;
 	}
+
+    //ADDED
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    public String getPass() { return pass; }
+
+    public void setPass(String pass) {
+        this.pass = pass;
+    }
+
+    public Boolean getLogin() { return login; }
+
+    public void setLogin(Boolean login) {
+        this.login = login;
+    }
+
+    public boolean getRegisterSucess(){return registerSucced;}
 
 }

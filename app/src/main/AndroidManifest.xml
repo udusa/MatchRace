@@ -34,15 +34,15 @@
             </intent-filter>
         </activity>
 
-        <!-- API Key PC -->
-        <!--  <meta-data
+        <!-- API Key using my PC -->
+        <!-- <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyDo0KfeB-Ryv99x6FxA52KWs841W0sv0bI" /> -->
+            android:value="AIzaSyAbk57eU-y_eB3ywDZanb5pAh-qOEGQB0o" /> -->
 
-        <!-- API Key Laptop -->
+        <!-- API Key using my Laptop -->
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyDEFjqHeoZn380dAiTRIlJ9FbwMIVSgMgE" />
+            android:value="AIzaSyBLRp4IgfFjra9HiCEnrqaHHgOC7akaC_I" />
 
         <activity android:name="com.matchrace.matchrace.MenuActivity" >
         </activity>
