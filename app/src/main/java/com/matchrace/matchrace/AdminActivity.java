@@ -51,6 +51,8 @@ public class AdminActivity extends FragmentActivity implements LocationListener,
             cancelButton, applyButton;
     private TimePicker time_picker;
     private DatePicker date_picker;
+    //Added
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -211,6 +213,7 @@ public class AdminActivity extends FragmentActivity implements LocationListener,
     public void onClick(View v) {
         // The buoy name with the event number.
         String fullBuoyName = "";
+        int bouyIndex = -1;
         switch (v.getId()) {
             //<added
             case R.id.cancel_button:
@@ -234,43 +237,52 @@ public class AdminActivity extends FragmentActivity implements LocationListener,
             //added>
             case R.id.bBuoy1:
                 //fullBuoyName = C.BUOY_PREFIX + "1_" + event;
-                fullBuoyName = C.BUOY_PREFIX + "1";
+                bouyIndex = 0;
                 bBuoy1.setEnabled(false);
                 break;
             case R.id.bBuoy2:
-                fullBuoyName = C.BUOY_PREFIX + "2_" + event;
+              //  fullBuoyName = C.BUOY_PREFIX + "2_" + event;
+                bouyIndex = 1;
                 bBuoy2.setEnabled(false);
                 break;
             case R.id.bBuoy3:
-                fullBuoyName = C.BUOY_PREFIX + "3_" + event;
+               // fullBuoyName = C.BUOY_PREFIX + "3_" + event;
+                bouyIndex = 2;
                 bBuoy3.setEnabled(false);
                 break;
             case R.id.bBuoy4:
-                fullBuoyName = C.BUOY_PREFIX + "4_" + event;
+                //fullBuoyName = C.BUOY_PREFIX + "4_" + event;
+                bouyIndex = 3;
                 bBuoy4.setEnabled(false);
                 break;
             case R.id.bBuoy5:
-                fullBuoyName = C.BUOY_PREFIX + "5_" + event;
+               // fullBuoyName = C.BUOY_PREFIX + "5_" + event;
+                bouyIndex = 4;
                 bBuoy5.setEnabled(false);
                 break;
             case R.id.bBuoy6:
-                fullBuoyName = C.BUOY_PREFIX + "6_" + event;
+                //fullBuoyName = C.BUOY_PREFIX + "6_" + event;
+                bouyIndex = 5;
                 bBuoy6.setEnabled(false);
                 break;
             case R.id.bBuoy7:
-                fullBuoyName = C.BUOY_PREFIX + "7_" + event;
+                //fullBuoyName = C.BUOY_PREFIX + "7_" + event;
+                bouyIndex = 6;
                 bBuoy7.setEnabled(false);
                 break;
             case R.id.bBuoy8:
-                fullBuoyName = C.BUOY_PREFIX + "8_" + event;
+               // fullBuoyName = C.BUOY_PREFIX + "8_" + event;
+                bouyIndex = 7;
                 bBuoy8.setEnabled(false);
                 break;
             case R.id.bBuoy9:
-                fullBuoyName = C.BUOY_PREFIX + "9_" + event;
+               // fullBuoyName = C.BUOY_PREFIX + "9_" + event;
+                bouyIndex = 8;
                 bBuoy9.setEnabled(false);
                 break;
             case R.id.bBuoy10:
-                fullBuoyName = C.BUOY_PREFIX + "10_" + event;
+               // fullBuoyName = C.BUOY_PREFIX + "10_" + event;
+                bouyIndex = 9;
                 bBuoy10.setEnabled(false);
                 break;
         }
@@ -279,8 +291,8 @@ public class AdminActivity extends FragmentActivity implements LocationListener,
 
         String lat = new DecimalFormat("##.######").format(currentPosition.getPosition().latitude);
         String lng = new DecimalFormat("##.######").format(currentPosition.getPosition().longitude);
-        String speed = "" + 0;
-        String bearing = "" + 0;
+       // String speed = "" + 0;
+       // String bearing = "" + 0;
 
         /*
         // HandlerThread for sending the buoy location to the DB through thread.
@@ -300,6 +312,14 @@ public class AdminActivity extends FragmentActivity implements LocationListener,
         googleMap.addMarker(new MarkerOptions().position(latLng).title(fullBuoyName.split("_")[0]).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_buoy_low)));
     }
 
-    private
+    private class BouyPostion{
+        String lat,lng;
+        public BouyPostion(String _lat,String _lng){
+            lat = _lat;
+            lng = _lng;
+        }
+        public String getLat(){return lat;}
+        public String getLng(){return lng;}
+    }
 
 }
