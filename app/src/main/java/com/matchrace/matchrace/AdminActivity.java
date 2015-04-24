@@ -2,6 +2,7 @@ package com.matchrace.matchrace;
 
 import java.text.DecimalFormat;
 
+import com.matchrace.matchrace.classes.BuoyPosition;
 import com.matchrace.matchrace.classes.C;
 import com.matchrace.matchrace.classes.SendDataHThread;
 import com.google.android.gms.maps.CameraUpdate;
@@ -52,7 +53,7 @@ public class AdminActivity extends FragmentActivity implements LocationListener,
     private TimePicker time_picker;
     private DatePicker date_picker;
     //Added
-
+    private BuoyPosition[] buoysArr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,6 +120,7 @@ public class AdminActivity extends FragmentActivity implements LocationListener,
         applyButton = (Button) findViewById(R.id.apply_button);
         time_picker = (TimePicker) findViewById(R.id.time_picker);
         date_picker = (DatePicker) findViewById(R.id.date_picker);
+        buoysArr = new BuoyPosition[10];
         //added code>
 
         bBuoy1.setOnClickListener(this);
@@ -137,6 +139,7 @@ public class AdminActivity extends FragmentActivity implements LocationListener,
         time_picker.setOnClickListener(this);
         time_picker.setIs24HourView(true);
         date_picker.setOnClickListener(this);
+
         //added code>
     }
 
@@ -219,20 +222,20 @@ public class AdminActivity extends FragmentActivity implements LocationListener,
             case R.id.cancel_button:
                 applyButton.setEnabled(true);//for testing
                 cancelButton.setEnabled(false);//for testing
+                googleMap.clear();
+                buoysArr = new BuoyPosition[10];
                 return;
             case R.id.apply_button:
                 applyButton.setEnabled(false);//for testing
-                cancelButton.setEnabled(true);//for testing
-                //<added code example
-                int time_H = time_picker.getCurrentHour();
-                int time_M = time_picker.getCurrentMinute();
+                cancelButton.setEnabled(false);//for testing
 
-                int date_Y = date_picker.getYear();
-                int date_M = date_picker.getMonth();
-                int date_D = date_picker.getDayOfMonth();
+                // HandlerThread for sending the buoy location to the DB through thread.
+                SendDataHThread thread = new SendDataHThread("SendBuoys");
+                thread.setPriority(Process.THREAD_PRIORITY_BACKGROUND);
+                thread.createEvent(buoysArr,time_picker,date_picker,event);
+                thread.start();
 
-                Log.d("code testing", "year:"+date_Y+", hour:"+time_H);
-                //added code example>
+
                 return;
             //added>
             case R.id.bBuoy1:
@@ -241,12 +244,12 @@ public class AdminActivity extends FragmentActivity implements LocationListener,
                 bBuoy1.setEnabled(false);
                 break;
             case R.id.bBuoy2:
-              //  fullBuoyName = C.BUOY_PREFIX + "2_" + event;
+                //  fullBuoyName = C.BUOY_PREFIX + "2_" + event;
                 bouyIndex = 1;
                 bBuoy2.setEnabled(false);
                 break;
             case R.id.bBuoy3:
-               // fullBuoyName = C.BUOY_PREFIX + "3_" + event;
+                // fullBuoyName = C.BUOY_PREFIX + "3_" + event;
                 bouyIndex = 2;
                 bBuoy3.setEnabled(false);
                 break;
@@ -256,7 +259,7 @@ public class AdminActivity extends FragmentActivity implements LocationListener,
                 bBuoy4.setEnabled(false);
                 break;
             case R.id.bBuoy5:
-               // fullBuoyName = C.BUOY_PREFIX + "5_" + event;
+                // fullBuoyName = C.BUOY_PREFIX + "5_" + event;
                 bouyIndex = 4;
                 bBuoy5.setEnabled(false);
                 break;
@@ -271,28 +274,33 @@ public class AdminActivity extends FragmentActivity implements LocationListener,
                 bBuoy7.setEnabled(false);
                 break;
             case R.id.bBuoy8:
-               // fullBuoyName = C.BUOY_PREFIX + "8_" + event;
+                // fullBuoyName = C.BUOY_PREFIX + "8_" + event;
                 bouyIndex = 7;
                 bBuoy8.setEnabled(false);
                 break;
             case R.id.bBuoy9:
-               // fullBuoyName = C.BUOY_PREFIX + "9_" + event;
+                // fullBuoyName = C.BUOY_PREFIX + "9_" + event;
                 bouyIndex = 8;
                 bBuoy9.setEnabled(false);
                 break;
             case R.id.bBuoy10:
-               // fullBuoyName = C.BUOY_PREFIX + "10_" + event;
+                // fullBuoyName = C.BUOY_PREFIX + "10_" + event;
                 bouyIndex = 9;
                 bBuoy10.setEnabled(false);
                 break;
         }
 
 
-
         String lat = new DecimalFormat("##.######").format(currentPosition.getPosition().latitude);
         String lng = new DecimalFormat("##.######").format(currentPosition.getPosition().longitude);
-       // String speed = "" + 0;
-       // String bearing = "" + 0;
+
+        if (bouyIndex > -1) {
+            buoysArr[bouyIndex] = new BuoyPosition(lat, lng);
+            LatLng latLng = new LatLng(Double.parseDouble(lat), Double.parseDouble(lng));
+            googleMap.addMarker(new MarkerOptions().position(latLng).title(fullBuoyName.split("_")[0]).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_buoy_low)));
+        }
+        // String speed = "" + 0;
+        // String bearing = "" + 0;
 
         /*
         // HandlerThread for sending the buoy location to the DB through thread.
@@ -308,18 +316,7 @@ public class AdminActivity extends FragmentActivity implements LocationListener,
         */
 
         // Adds a buoy on the map.
-        LatLng latLng = new LatLng(Double.parseDouble(lat), Double.parseDouble(lng));
-        googleMap.addMarker(new MarkerOptions().position(latLng).title(fullBuoyName.split("_")[0]).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_buoy_low)));
-    }
 
-    private class BouyPostion{
-        String lat,lng;
-        public BouyPostion(String _lat,String _lng){
-            lat = _lat;
-            lng = _lng;
-        }
-        public String getLat(){return lat;}
-        public String getLng(){return lng;}
     }
 
 }

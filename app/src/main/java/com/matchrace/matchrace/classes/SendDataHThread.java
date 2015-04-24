@@ -11,6 +11,8 @@ import java.net.URL;
 
 import android.os.HandlerThread;
 import android.util.Log;
+import android.widget.DatePicker;
+import android.widget.TimePicker;
 
 /**
  * HandlerThread for sending the data to DB.
@@ -24,15 +26,11 @@ public class SendDataHThread extends HandlerThread {
     //ADDED
     private String user,pass;
     private boolean login,registerSucced=false;
-    private String phpUrl;
+    private String phpSendGPS;
 
 	public SendDataHThread(String name) {
 		super(name);
 		this.name = name;
-        switch (name){
-            case "CreateNewUser" : phpUrl = C.URL_INSERT_CLIENT; break;
-            case "SendGPS" : phpUrl = "";
-        }
 	}
 
 	@Override
@@ -46,7 +44,16 @@ public class SendDataHThread extends HandlerThread {
 	private void httpConnSendData() {
 		try {
 			//URL url = new URL(C.URL_INSERT_CLIENT + "&Latitude=" + lat +"&Longitude=" + lng +"&Speed="+ speed + "&Azimuth="+ bearing + "&Bearing=" + bearing + "&Information=" + fullUserName + "&Event=" + event);
-            URL url = new URL(phpUrl + "&User=" +user+ "&Pass=" + pass + "&Login=" + login + "&Latitude=" + lat +"&Longitude=" + lng +"&Speed="+ speed + "&Azimuth="+ bearing + "&Bearing=" + bearing  + "&Event=" + event);
+            URL url = null;
+            switch (name) {
+                case "CreateNewUser": {
+                    url = new URL(C.URL_INSERT_CLIENT + "&User=" + user + "&Pass=" + pass + "&Login=" + login + "&Latitude=" + lat + "&Longitude=" + lng + "&Speed=" + speed + "&Azimuth=" + bearing + "&Bearing=" + bearing + "&Event=" + event);
+                    break;
+                }
+                case "SendGPS": {
+                    url = new URL(phpSendGPS);
+                }
+            }
             urlConnection = (HttpURLConnection) url.openConnection();
 			try {
 				InputStream in = new BufferedInputStream(urlConnection.getInputStream());
@@ -146,5 +153,20 @@ public class SendDataHThread extends HandlerThread {
     }
 
     public boolean getRegisterSucess(){return registerSucced;}
+
+    public void createEvent(BuoyPosition[] buoysArr,TimePicker tp,DatePicker dp,String event){
+        String time = tp.getCurrentHour()+":"+tp.getCurrentMinute();
+        String date = dp.getYear()+"-"+dp.getMonth()+"-"+dp.getDayOfMonth();
+        phpSendGPS = ""+C.URL_SEND_GPS+"&Event="+event+"&sTime="+time+"&Date="+date;
+        for (int i=0;i<buoysArr.length;i++){
+            if(buoysArr[i]!=null) {
+                phpSendGPS += "&b" + (i + 1) + "lat=" + buoysArr[i].getLat();
+                phpSendGPS += "&b" + (i + 1) + "lng=" + buoysArr[i].getLng();
+            }else{
+                phpSendGPS += "&b" + (i + 1) + "lat=";
+                phpSendGPS += "&b" + (i + 1) + "lng=";
+            }
+        }
+    }
 
 }
