@@ -26,7 +26,7 @@ public class SendDataHThread extends HandlerThread {
     //ADDED
     private String user,pass;
     private boolean login,registerSucced=false;
-    private String phpSendGPS;
+    private String phpSetBuoysS;
 
 	public SendDataHThread(String name) {
 		super(name);
@@ -50,11 +50,18 @@ public class SendDataHThread extends HandlerThread {
                     url = new URL(C.URL_INSERT_CLIENT + "&User=" + user + "&Pass=" + pass + "&Login=" + login + "&Latitude=" + lat + "&Longitude=" + lng + "&Speed=" + speed + "&Azimuth=" + bearing + "&Bearing=" + bearing + "&Event=" + event);
                     break;
                 }
+                case "SendBuoys": {
+                    url = new URL(phpSetBuoysS);
+                    break;
+                }
                 case "SendGPS": {
-                    url = new URL(phpSendGPS);
+                    url = new URL(C.URL_UPDATE_CLIENT + "&User=" + user + "&Latitude=" + lat + "&Longitude=" + lng + "&Speed=" + speed + "&Azimuth=" + bearing + "&Bearing=" + bearing + "&Event=" + event);
+                    break;
                 }
             }
+
             urlConnection = (HttpURLConnection) url.openConnection();
+
 			try {
 				InputStream in = new BufferedInputStream(urlConnection.getInputStream());
 				BufferedReader br = new BufferedReader(new InputStreamReader(in));
@@ -156,17 +163,19 @@ public class SendDataHThread extends HandlerThread {
 
     public void createEvent(BuoyPosition[] buoysArr,TimePicker tp,DatePicker dp,String event){
         String time = tp.getCurrentHour()+":"+tp.getCurrentMinute();
-        String date = dp.getYear()+"-"+dp.getMonth()+"-"+dp.getDayOfMonth();
-        phpSendGPS = ""+C.URL_SEND_GPS+"&Event="+event+"&sTime="+time+"&Date="+date;
+        String date = dp.getYear()+"-"+(dp.getMonth()+1)+"-"+dp.getDayOfMonth();
+        phpSetBuoysS = ""+C.URL_SET_BUOYS+"&Event="+event+"&sTime="+time+"&Date="+date;
         for (int i=0;i<buoysArr.length;i++){
             if(buoysArr[i]!=null) {
-                phpSendGPS += "&b" + (i + 1) + "lat=" + buoysArr[i].getLat();
-                phpSendGPS += "&b" + (i + 1) + "lng=" + buoysArr[i].getLng();
+                phpSetBuoysS += "&b" + (i + 1) + "lat=" + buoysArr[i].getLat();
+                phpSetBuoysS += "&b" + (i + 1) + "lng=" + buoysArr[i].getLng();
             }else{
-                phpSendGPS += "&b" + (i + 1) + "lat=";
-                phpSendGPS += "&b" + (i + 1) + "lng=";
+                phpSetBuoysS += "&b" + (i + 1) + "lat=";
+                phpSetBuoysS += "&b" + (i + 1) + "lng=";
             }
         }
+
+       
     }
 
 }

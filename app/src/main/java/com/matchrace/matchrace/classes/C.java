@@ -34,9 +34,13 @@ public class C {
 	public static final String URL_HISTORY_TABLE = "http://kcg-lab.info/map-tracking-2d/services/json-clients.php?table=history";
 
     //My DB
-    public static final String URL_INSERT_CLIENT = "http://10.0.2.2/androidRegister.php?Table=clients";
+    public static final String URL_INSERT_CLIENT = "http://192.168.43.215/androidRegister.php?Table=clients";
     public static final String URL_SIGNIN_CLIENT = "http://10.0.2.2/androidSignIn.php?TableUsers=clients";//&TableEvents=events";
-    public static final String URL_SEND_GPS = "http://10.0.2.2/androidSendGPS.php?Table=events";
+   // public static final String URL_SET_BUOYS = "http://10.0.2.2/androidSendGPS.php?Table=events";
+    public static final String URL_UPDATE_CLIENT = "http://192.168.43.215/androidUpdate.php?Table=clients";
+
+    //REMOTE TEST
+    public static final String URL_SET_BUOYS = "http://192.168.43.215/androidSendGPS.php?Table=events";
 
 	// Data constants.
 	public static final String APP_DIR = Environment.getExternalStorageDirectory().getPath() + "/BlindMatchRace/";

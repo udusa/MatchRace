@@ -15,6 +15,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.location.Criteria;
 import android.location.Location;
@@ -141,6 +142,24 @@ public class AdminActivity extends FragmentActivity implements LocationListener,
         date_picker.setOnClickListener(this);
 
         //added code>
+
+        //***************************************************TEST***********************************************
+        /*
+        if (firstUse) {
+            firstUse = false;
+            bBuoy1.setEnabled(true);
+            bBuoy2.setEnabled(true);
+            bBuoy3.setEnabled(true);
+            bBuoy4.setEnabled(true);
+            bBuoy5.setEnabled(true);
+            bBuoy6.setEnabled(true);
+            bBuoy7.setEnabled(true);
+            bBuoy8.setEnabled(true);
+            bBuoy9.setEnabled(true);
+            bBuoy10.setEnabled(true);
+        }
+        */
+        //******************************************************************************************************
     }
 
     @Override
@@ -148,6 +167,8 @@ public class AdminActivity extends FragmentActivity implements LocationListener,
         super.onBackPressed();
 
         // Disables the location changed code.
+        Intent intent = new Intent(AdminActivity.this,LoginActivity.class);
+        startActivity(intent);
         disableLocation = true;
         finish();
     }
@@ -168,6 +189,7 @@ public class AdminActivity extends FragmentActivity implements LocationListener,
                 bBuoy8.setEnabled(true);
                 bBuoy9.setEnabled(true);
                 bBuoy10.setEnabled(true);
+                cancelButton.setEnabled(true);
             }
 
             String lat = new DecimalFormat("##.######").format(location.getLatitude());
@@ -220,14 +242,24 @@ public class AdminActivity extends FragmentActivity implements LocationListener,
         switch (v.getId()) {
             //<added
             case R.id.cancel_button:
-                applyButton.setEnabled(true);//for testing
-                cancelButton.setEnabled(false);//for testing
+                applyButton.setEnabled(false);//for testing
+                cancelButton.setEnabled(true);//for testing
                 googleMap.clear();
                 buoysArr = new BuoyPosition[10];
+                bBuoy1.setEnabled(true);
+                bBuoy2.setEnabled(true);
+                bBuoy3.setEnabled(true);
+                bBuoy4.setEnabled(true);
+                bBuoy5.setEnabled(true);
+                bBuoy6.setEnabled(true);
+                bBuoy7.setEnabled(true);
+                bBuoy8.setEnabled(true);
+                bBuoy9.setEnabled(true);
+                bBuoy10.setEnabled(true);
                 return;
             case R.id.apply_button:
                 applyButton.setEnabled(false);//for testing
-                cancelButton.setEnabled(false);//for testing
+                //cancelButton.setEnabled(false);//for testing
 
                 // HandlerThread for sending the buoy location to the DB through thread.
                 SendDataHThread thread = new SendDataHThread("SendBuoys");
@@ -295,9 +327,13 @@ public class AdminActivity extends FragmentActivity implements LocationListener,
         String lng = new DecimalFormat("##.######").format(currentPosition.getPosition().longitude);
 
         if (bouyIndex > -1) {
+            applyButton.setEnabled(true);
+            //buoysArr[bouyIndex] = new BuoyPosition(""+bouyIndex, ""+bouyIndex);
+            //**********************************TEST**********************************************
             buoysArr[bouyIndex] = new BuoyPosition(lat, lng);
             LatLng latLng = new LatLng(Double.parseDouble(lat), Double.parseDouble(lng));
             googleMap.addMarker(new MarkerOptions().position(latLng).title(fullBuoyName.split("_")[0]).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_buoy_low)));
+
         }
         // String speed = "" + 0;
         // String bearing = "" + 0;

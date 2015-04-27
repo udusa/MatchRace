@@ -137,7 +137,10 @@ public class MainActivity extends FragmentActivity implements LocationListener {
 			String speed = "" + location.getSpeed();
 			String bearing = "" + location.getBearing();
 
-			thread.setFullUserName(fullUserName);
+			//thread.setFullUserName(fullUserName);
+            thread.setUser(mUser);
+            thread.setPass(mPassword);
+
 			thread.setLat(lat);
 			thread.setLng(lng);
 			thread.setSpeed(speed);

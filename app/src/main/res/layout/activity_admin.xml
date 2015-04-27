@@ -288,7 +288,7 @@
             android:layout_height="wrap_content"
             android:text="Cancel"
             android:id="@+id/cancel_button"
-            android:enabled="true"
+            android:enabled="false"
             android:gravity="center_horizontal"
             android:layout_weight="1"/>
     </LinearLayout>
