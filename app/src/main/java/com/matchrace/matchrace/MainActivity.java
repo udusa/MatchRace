@@ -141,7 +141,6 @@ public class MainActivity extends FragmentActivity implements LocationListener {
             thread.setUser(mUser);
             thread.setPass(mPassword);
 
-
 			thread.setLat(lat);
 			thread.setLng(lng);
 			thread.setSpeed(speed);
