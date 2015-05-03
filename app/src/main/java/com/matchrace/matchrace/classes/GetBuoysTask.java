@@ -49,22 +49,28 @@ public class GetBuoysTask extends AsyncTask<String, Integer, Map<String, LatLng>
 		try {
 			JSONObject json = JsonReader.readJsonFromUrl(urls[0]);
 			JSONArray jsonArray = json.getJSONArray("positions");
-			int countBouy = 0;
-			for (int i = 0; i < jsonArray.length() && countBouy < C.MAX_BUOYS; i++) {
-				JSONObject jsonObj = (JSONObject) jsonArray.get(i);
-				if (jsonObj.getString("info").startsWith(C.BUOY_PREFIX)) {
-					if (jsonObj.getString("event").equals(event)) {
-						countBouy++;
-						String buoyName = jsonObj.getString("info").split("_")[0];
-						String lat = jsonObj.getString("lat");
-						String lng = jsonObj.getString("lon");
+            JSONObject jsonObj = (JSONObject) jsonArray.get(0);
+			//int countBouy = 0;
+			for (int i = 0; i < /*jsonArray.length() && countBouy < */ C.MAX_BUOYS; i++) {
+                String blat = "b"+(i+1)+"lat";
+                String blng = "b"+(i+1)+"lng";
+
+				//if (jsonObj.getString("info").startsWith(C.BUOY_PREFIX)) {
+				//	if (jsonObj.getString("event").equals(event)) {
+						//countBouy++;
+						String buoyName = "buoy#"+(i+1);//jsonObj.getString("info").split("_")[0];
+						String lat = jsonObj.getString(blat);
+						String lng = jsonObj.getString(blng);
 
 						// Adds buoy with LatLng to HashMap.
-						buoysLatLng.put(buoyName, new LatLng(Double.parseDouble(lat), Double.parseDouble(lng)));
-
+                        double tlat = Double.parseDouble(lat);
+                        double tlng = Double.parseDouble(lng);
+                        if(tlat != 0 && tlng != 0) {
+                            buoysLatLng.put(buoyName, new LatLng(Double.parseDouble(lat), Double.parseDouble(lng)));
+                        }
 						Log.i(name + " " + buoyName + " " + event, "Lat: " + lat + ", Lng: " + lng);
-					}
-				}
+				//	}
+				//}
 			}
 			return buoysLatLng;
 		}

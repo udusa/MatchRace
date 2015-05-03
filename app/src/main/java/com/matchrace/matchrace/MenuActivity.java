@@ -1,6 +1,6 @@
 package com.matchrace.matchrace;
 
-import android.os.Bundle;
+import android.os.*;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.matchrace.matchrace.classes.C;
 import com.matchrace.matchrace.classes.SaveKmlTask;
+import com.matchrace.matchrace.classes.SendDataHThread;
 
 /**
  * Menu activity. Shows the menu screen.
@@ -62,10 +63,25 @@ public class MenuActivity extends Activity implements OnClickListener {
 		bLogout.setOnClickListener(this);
 		bExit.setOnClickListener(this);
 	}
+    private void onExitDBUpdate(){
 
+        SendDataHThread thread = new SendDataHThread("UpdateClient");
+        thread.setPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
+
+        thread.setUser(user);
+        thread.setPass(pass);
+
+        thread.setLat("0");
+        thread.setLng("0");
+        thread.setSpeed("0");
+        thread.setBearing("0");
+        thread.setEvent("-1");
+        thread.start();
+    }
 	@Override
 	public void onBackPressed() {
 		super.onBackPressed();
+        onExitDBUpdate();
 		finish();
 	}
 
@@ -106,9 +122,11 @@ public class MenuActivity extends Activity implements OnClickListener {
 			intent = new Intent(MenuActivity.this, LoginActivity.class);
 			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(intent);
+            onExitDBUpdate();
 			finish();
 			break;
 		case R.id.bExit:
+            onExitDBUpdate();
 			finish();
 			break;
 		}

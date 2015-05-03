@@ -26,7 +26,7 @@ public class SendDataHThread extends HandlerThread {
     //ADDED
     private String user,pass;
     private boolean login,registerSucced=false;
-    private String phpSetBuoysS;
+    private String phpSetBuoys;
 
 	public SendDataHThread(String name) {
 		super(name);
@@ -47,19 +47,18 @@ public class SendDataHThread extends HandlerThread {
             URL url = null;
             switch (name) {
                 case "CreateNewUser": {
-                    url = new URL(C.URL_INSERT_CLIENT + "&User=" + user + "&Pass=" + pass + "&Login=" + login + "&Latitude=" + lat + "&Longitude=" + lng + "&Speed=" + speed + "&Azimuth=" + bearing + "&Bearing=" + bearing + "&Event=" + event);
+                    url = new URL(C.URL_REGISTER_CLIENT + "&User=" + user + "&Pass=" + pass + "&Login=" + login + "&Latitude=" + lat + "&Longitude=" + lng + "&Speed=" + speed + "&Azimuth=" + bearing + "&Bearing=" + bearing + "&Event=" + event);
                     break;
                 }
                 case "SendBuoys": {
-                    url = new URL(phpSetBuoysS);
+                    url = new URL(phpSetBuoys);
                     break;
                 }
-                case "SendGPS": {
+                case "UpdateClient": {
                     url = new URL(C.URL_UPDATE_CLIENT + "&User=" + user + "&Latitude=" + lat + "&Longitude=" + lng + "&Speed=" + speed + "&Azimuth=" + bearing + "&Bearing=" + bearing + "&Event=" + event);
                     break;
                 }
             }
-
             urlConnection = (HttpURLConnection) url.openConnection();
 
 			try {
@@ -164,14 +163,14 @@ public class SendDataHThread extends HandlerThread {
     public void createEvent(BuoyPosition[] buoysArr,TimePicker tp,DatePicker dp,String event){
         String time = tp.getCurrentHour()+":"+tp.getCurrentMinute();
         String date = dp.getYear()+"-"+(dp.getMonth()+1)+"-"+dp.getDayOfMonth();
-        phpSetBuoysS = ""+C.URL_SET_BUOYS+"&Event="+event+"&sTime="+time+"&Date="+date;
+        phpSetBuoys = ""+C.URL_SET_BUOYS+"&Event="+event+"&sTime="+time+"&Date="+date;
         for (int i=0;i<buoysArr.length;i++){
             if(buoysArr[i]!=null) {
-                phpSetBuoysS += "&b" + (i + 1) + "lat=" + buoysArr[i].getLat();
-                phpSetBuoysS += "&b" + (i + 1) + "lng=" + buoysArr[i].getLng();
+                phpSetBuoys += "&b" + (i + 1) + "lat=" + buoysArr[i].getLat();
+                phpSetBuoys += "&b" + (i + 1) + "lng=" + buoysArr[i].getLng();
             }else{
-                phpSetBuoysS += "&b" + (i + 1) + "lat=";
-                phpSetBuoysS += "&b" + (i + 1) + "lng=";
+                phpSetBuoys += "&b" + (i + 1) + "lat=";
+                phpSetBuoys += "&b" + (i + 1) + "lng=";
             }
         }
 

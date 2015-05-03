@@ -29,6 +29,7 @@ public class GetSailorsTask extends AsyncTask<String, Integer, Map<String, LatLn
 
 	// Application variables.
 	private String name = "", fullUserName = "", event = "";
+    private String myName;
 
 	// Views.
 	private List<Marker> sailorMarkers = new ArrayList<Marker>();
@@ -47,26 +48,28 @@ public class GetSailorsTask extends AsyncTask<String, Integer, Map<String, LatLn
 		Map<String, LatLng> sailorsLatLng = new HashMap<String, LatLng>();
 		try {
 			JSONObject json = JsonReader.readJsonFromUrl(urls[0]);
-			JSONArray jsonArray = json.getJSONArray("positions");
+			JSONArray jsonArray = json.getJSONArray("users");
 			for (int i = 0; i < jsonArray.length(); i++) {
 				JSONObject jsonObj = (JSONObject) jsonArray.get(i);
-				if (jsonObj.getString("info").startsWith(C.SAILOR_PREFIX)) {
-					if (jsonObj.getString("event").equals(event)) {
-						String sailorFullName = jsonObj.getString("info");
-						if (sailorFullName.equals((fullUserName))) {
-							continue;
-						}
+				//if (jsonObj.getString("info").startsWith(C.SAILOR_PREFIX)) {
+					//if (jsonObj.getString("event").equals(event)) {
+						//String sailorFullName = jsonObj.getString("user");
+						//if (sailorFullName.equals((fullUserName))) {
+						//	continue;
+						//}
 						String lat = jsonObj.getString("lat");
-						String lng = jsonObj.getString("lon");
-						if (Double.parseDouble(lat) == 0 || Double.parseDouble(lng) == 0) {
+						String lng = jsonObj.getString("lng");
+                        String sailorName = jsonObj.getString("user");
+						if (Double.parseDouble(lat) == 0 || Double.parseDouble(lng) == 0 || myName.compareTo(sailorName)==0) {
 							continue;
 						}
-						String sailorName = sailorFullName.split("_")[0].substring(6);
+						//String sailorName = sailorFullName.split("_")[0].substring(6);
+
 						sailorsLatLng.put(sailorName, new LatLng(Double.parseDouble(lat), Double.parseDouble(lng)));
 
 						Log.i(name + " " + sailorName + " " + event, "Lat: " + lat + ", Lng: " + lng);
-					}
-				}
+					//}
+				//}
 			}
 			return sailorsLatLng;
 		}
@@ -79,6 +82,10 @@ public class GetSailorsTask extends AsyncTask<String, Integer, Map<String, LatLn
 			return null;
 		}
 	}
+
+    public void setName(String name){
+        myName=name;
+    }
 
 	protected void onPostExecute(Map<String, LatLng> sailorsLatLng) {
 		if (sailorsLatLng != null) {

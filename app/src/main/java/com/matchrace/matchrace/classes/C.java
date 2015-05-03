@@ -33,15 +33,27 @@ public class C {
 	public static final String URL_CLIENTS_TABLE = "http://kcg-lab.info/map-tracking-2d/services/json-clients.php?table=clients";
 	public static final String URL_HISTORY_TABLE = "http://kcg-lab.info/map-tracking-2d/services/json-clients.php?table=history";
 
-    //My DB
-    public static final String URL_INSERT_CLIENT = "http://192.168.43.215/androidRegister.php?Table=clients";
-    public static final String URL_SIGNIN_CLIENT = "http://10.0.2.2/androidSignIn.php?TableUsers=clients";//&TableEvents=events";
-   // public static final String URL_SET_BUOYS = "http://10.0.2.2/androidSendGPS.php?Table=events";
+    //My DB LOCAL HOST
+    //10.0.2.2 / 192.168.43.215
+    /*
+    public static final String URL_REGISTER_CLIENT = "http://192.168.43.215/androidRegister.php?Table=clients";
+    public static final String URL_SIGNIN_CLIENT = "http://192.168.43.215/androidSignIn.php?TableUsers=clients";//&TableEvents=events";
     public static final String URL_UPDATE_CLIENT = "http://192.168.43.215/androidUpdate.php?Table=clients";
+    public static final String URL_SET_BUOYS = "http://192.168.43.215/androidSetBouys.php?Table=events";
 
-    //REMOTE TEST
-    public static final String URL_SET_BUOYS = "http://192.168.43.215/androidSendGPS.php?Table=events";
+    public static final String URL_GET_BUOYS = "http://192.168.43.215/androidGetBuoys.php?Table=events&Event=";
+    public static final String URL_GET_CLIENT = "http://192.168.43.215/androidGetClients.php?Table=clients&Event=";
+//    public static final String URL_GET_CLIENT = "http://10.0.2.2/androidGetClients.php?Table=clients&Event=";
+    */
+    //My DB on SERVER  	bmr.comuv.com
+    public static final String URL_REGISTER_CLIENT = "http://bmr.comuv.com/androidRegister.php?Table=clients";
+    public static final String URL_SIGNIN_CLIENT = "http://bmr.comuv.com/androidSignIn.php?TableUsers=clients";//&TableEvents=events";
+    public static final String URL_UPDATE_CLIENT = "http://bmr.comuv.com/androidUpdate.php?Table=clients";
+    public static final String URL_SET_BUOYS = "http://bmr.comuv.com/androidSetBouys.php?Table=events";
 
-	// Data constants.
+    public static final String URL_GET_BUOYS = "http://bmr.comuv.com/androidGetBuoys.php?Table=events&Event=";
+    public static final String URL_GET_CLIENT = "http://bmr.comuv.com/androidGetClients.php?Table=clients&Event=";
+
+    // Data constants.
 	public static final String APP_DIR = Environment.getExternalStorageDirectory().getPath() + "/BlindMatchRace/";
 }

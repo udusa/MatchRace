@@ -109,12 +109,16 @@ public class MainActivity extends FragmentActivity implements LocationListener {
 
 		// AsyncTask for getting the buoy's locations from DB and adding them to the google map.
 		GetBuoysTask getBuoys = new GetBuoysTask("GetBuoysTask", googleMap, buoyRadiuses, event);
-		getBuoys.execute(C.URL_CLIENTS_TABLE);
+		//getBuoys.execute(C.URL_CLIENTS_TABLE);
+        getBuoys.execute(C.URL_GET_BUOYS+event);
+
 
 		// AsyncTask for getting the sailor's locations from DB and adding them to the google map.
 		GetSailorsTask getSailors = new GetSailorsTask("GetSailorsTask", googleMap, sailorMarkers, fullUserName, event);
-		getSailors.execute(C.URL_CLIENTS_TABLE);
+		getSailors.execute(C.URL_GET_CLIENT+event);
 	}
+
+
 
 	@Override
 	public void onBackPressed() {
@@ -122,14 +126,14 @@ public class MainActivity extends FragmentActivity implements LocationListener {
 
 		// Disables the location changed code.
 		disableLocation = true;
-		finish();
+    	finish();
 	}
 
 	@Override
 	public void onLocationChanged(Location location) {
 		if (!disableLocation) {
 			// HandlerThread for sending the current location to DB.
-			SendDataHThread thread = new SendDataHThread("SendGPS");
+			SendDataHThread thread = new SendDataHThread("UpdateClient");
 			thread.setPriority(Process.THREAD_PRIORITY_BACKGROUND);
 
 			String lat = new DecimalFormat("##.######").format(location.getLatitude());
@@ -138,8 +142,8 @@ public class MainActivity extends FragmentActivity implements LocationListener {
 			String bearing = "" + location.getBearing();
 
 			//thread.setFullUserName(fullUserName);
-            thread.setUser(mUser);
-            thread.setPass(mPassword);
+            thread.setUser(user);
+            thread.setPass(pass);
 
 			thread.setLat(lat);
 			thread.setLng(lng);
@@ -151,7 +155,7 @@ public class MainActivity extends FragmentActivity implements LocationListener {
 
 			// AsyncTask for getting the sailor's locations from DB and adding them to the google map.
 			GetSailorsTask getSailors = new GetSailorsTask("GetSailorsTask", googleMap, sailorMarkers, fullUserName, event);
-			getSailors.execute(C.URL_CLIENTS_TABLE);
+			getSailors.execute(C.URL_GET_CLIENT+event);
 
 			// Updates TextViews in layout.
 			tvLat.setText(lat);
