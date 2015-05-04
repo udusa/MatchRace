@@ -29,6 +29,7 @@ import android.os.Bundle;
 import android.os.Process;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -115,7 +116,8 @@ public class MainActivity extends FragmentActivity implements LocationListener {
 
 		// AsyncTask for getting the sailor's locations from DB and adding them to the google map.
 		GetSailorsTask getSailors = new GetSailorsTask("GetSailorsTask", googleMap, sailorMarkers, fullUserName, event);
-		getSailors.execute(C.URL_GET_CLIENT+event);
+        getSailors.setName(user);
+        getSailors.execute(C.URL_GET_CLIENT+event);
 	}
 
 
@@ -154,8 +156,10 @@ public class MainActivity extends FragmentActivity implements LocationListener {
 			thread.start();
 
 			// AsyncTask for getting the sailor's locations from DB and adding them to the google map.
+
 			GetSailorsTask getSailors = new GetSailorsTask("GetSailorsTask", googleMap, sailorMarkers, fullUserName, event);
-			getSailors.execute(C.URL_GET_CLIENT+event);
+			getSailors.setName(user);
+            getSailors.execute(C.URL_GET_CLIENT+event);
 
 			// Updates TextViews in layout.
 			tvLat.setText(lat);

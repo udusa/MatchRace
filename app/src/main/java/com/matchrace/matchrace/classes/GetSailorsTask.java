@@ -29,7 +29,7 @@ public class GetSailorsTask extends AsyncTask<String, Integer, Map<String, LatLn
 
 	// Application variables.
 	private String name = "", fullUserName = "", event = "";
-    private String myName;
+    private String myName ="";
 
 	// Views.
 	private List<Marker> sailorMarkers = new ArrayList<Marker>();

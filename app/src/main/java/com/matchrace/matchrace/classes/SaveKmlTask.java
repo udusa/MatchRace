@@ -53,12 +53,12 @@ public class SaveKmlTask extends AsyncTask<String, Integer, Map<Long, LatLng>> {
 		Map<Long, LatLng> sortedLatLngs = new TreeMap<Long, LatLng>();
 		try {
 			JSONObject jsonHistory = JsonReader.readJsonFromUrl(urls[0]);
-			JSONArray jsonArray = jsonHistory.getJSONArray("positions");
+			JSONArray jsonArray = jsonHistory.getJSONArray("users");
 			for (int i = 0; i < jsonArray.length(); i++) {
 				JSONObject jsonObj = (JSONObject) jsonArray.get(i);
-				if (jsonObj.getString("info").equals(fullUserName)) {
+				//if (jsonObj.getString("info").equals(fullUserName)) {
 					String lat = jsonObj.getString("lat");
-					String lng = jsonObj.getString("lon");
+					String lng = jsonObj.getString("lng");
 					if (Double.parseDouble(lat) == 0 || Double.parseDouble(lng) == 0) {
 						continue;
 					}
@@ -69,9 +69,9 @@ public class SaveKmlTask extends AsyncTask<String, Integer, Map<Long, LatLng>> {
 					sortedLatLngs.put(Long.parseLong(time), latLng);
 
 					Log.i(fullUserName, "Lat: " + lat + ", Lng: " + lng);
-				}
+				//}
 			}
-
+            /*
 			JSONObject jsonClients = JsonReader.readJsonFromUrl(urls[1]);
 			jsonArray = jsonClients.getJSONArray("positions");
 			for (int i = 0; i < jsonArray.length(); i++) {
@@ -91,8 +91,9 @@ public class SaveKmlTask extends AsyncTask<String, Integer, Map<Long, LatLng>> {
 					Log.i(fullUserName, "Lat: " + lat + ", Lng: " + lng);
 					break;
 				}
-			}
 
+			}
+            */
 			return sortedLatLngs;
 		}
 		catch (JSONException e) {
@@ -106,6 +107,9 @@ public class SaveKmlTask extends AsyncTask<String, Integer, Map<Long, LatLng>> {
 	}
 
 	protected void onPostExecute(Map<Long, LatLng> sortedLatLngs) {
+
+        Log.i("KML PATH",C.APP_DIR);
+
 		if (sortedLatLngs != null && sortedLatLngs.size() > 1) {
 			if (kmlVer == 1) {
 				Iterator<Map.Entry<Long, LatLng>> iter = sortedLatLngs.entrySet().iterator();
@@ -167,6 +171,7 @@ public class SaveKmlTask extends AsyncTask<String, Integer, Map<Long, LatLng>> {
 				kmlBuilder.append("</Document>\n</kml>");
 
 				// Creates a new directory for the application on SD memory.
+
 				File file = new File(C.APP_DIR + "KMLFiles/");
 				if (!file.exists()) {
 					file.mkdirs();
