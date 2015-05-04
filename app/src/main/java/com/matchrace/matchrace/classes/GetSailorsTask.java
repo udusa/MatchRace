@@ -60,9 +60,12 @@ public class GetSailorsTask extends AsyncTask<String, Integer, Map<String, LatLn
 						String lat = jsonObj.getString("lat");
 						String lng = jsonObj.getString("lng");
                         String sailorName = jsonObj.getString("user");
-						if (Double.parseDouble(lat) == 0 || Double.parseDouble(lng) == 0 || myName.compareTo(sailorName)==0) {
+						if (Double.parseDouble(lat) == 0 || Double.parseDouble(lng) == 0 ) {
 							continue;
 						}
+                        if(myName.compareTo(sailorName)==0){
+                            continue;
+                        }
 						//String sailorName = sailorFullName.split("_")[0].substring(6);
 
 						sailorsLatLng.put(sailorName, new LatLng(Double.parseDouble(lat), Double.parseDouble(lng)));
