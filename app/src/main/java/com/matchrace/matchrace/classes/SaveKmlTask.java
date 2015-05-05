@@ -37,7 +37,7 @@ public class SaveKmlTask extends AsyncTask<String, Integer, Map<Long, LatLng>> {
 	private int kmlVer;
 
     //TEST
-    Kml kml = new Kml();
+    //Kml kml = new Kml();
 
 
 	public SaveKmlTask(Context context, String name, String fullUserName, int kmlVer) {
@@ -63,6 +63,7 @@ public class SaveKmlTask extends AsyncTask<String, Integer, Map<Long, LatLng>> {
 						continue;
 					}
 					String time = jsonObj.getString("time");
+                    time = time.replace(":","");
 					LatLng latLng = new LatLng(Double.parseDouble(lat), Double.parseDouble(lng));
 
 					// Adds sailor's data to TreeMap.
@@ -173,7 +174,8 @@ public class SaveKmlTask extends AsyncTask<String, Integer, Map<Long, LatLng>> {
 				// Creates a new directory for the application on SD memory.
 
 				File file = new File(C.APP_DIR + "KMLFiles/");
-				if (!file.exists()) {
+                //File file = new File("D:/Work Place/Android"+"/KMLFiles/");
+                if (!file.exists()) {
 					file.mkdirs();
 				}
 

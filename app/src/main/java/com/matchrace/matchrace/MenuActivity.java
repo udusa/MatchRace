@@ -23,9 +23,11 @@ public class MenuActivity extends Activity implements OnClickListener {
 
 	// Application variables.
 	private String user = "", pass = "", event = "", fullUserName = "";
-
+    private String urlAddition;
 	// Views.
 	private Button bMap, bKml1, bKml2, bLogout, bExit;
+
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +52,8 @@ public class MenuActivity extends Activity implements OnClickListener {
 		event = getIntent().getStringExtra(C.EVENT_NUM);
 		fullUserName = user + "_" + pass + "_" + event;
 
+        //URL Addition
+        urlAddition = "&Event="+event+"&User="+user;
 		// Initializing Buttons.
 		bMap = (Button) findViewById(R.id.bMap);
 		bKml1 = (Button) findViewById(R.id.bKml1);
@@ -103,15 +107,17 @@ public class MenuActivity extends Activity implements OnClickListener {
 
 			// AsyncTask for saving the KML file on SD memory (with time stamp).
 			SaveKmlTask saveKml1 = new SaveKmlTask(this, "SaveKmlTask", fullUserName, 1);
-			saveKml1.execute(C.URL_HISTORY_TABLE, C.URL_CLIENTS_TABLE);
-			break;
+			//saveKml1.execute(C.URL_HISTORY_TABLE, C.URL_CLIENTS_TABLE);
+            saveKml1.execute(C.URL_GET_KML+urlAddition);
+            break;
 		case R.id.bKml2:
 			bKml2.setEnabled(false);
 			Toast.makeText(this, "Please wait few seconds...", Toast.LENGTH_SHORT).show();
 
 			// AsyncTask for saving the KML file on SD memory (only path).
 			SaveKmlTask saveKml2 = new SaveKmlTask(this, "SaveKmlTask", fullUserName, 2);
-			saveKml2.execute(C.URL_HISTORY_TABLE, C.URL_CLIENTS_TABLE);
+			//saveKml2.execute(C.URL_HISTORY_TABLE, C.URL_CLIENTS_TABLE);
+            saveKml2.execute(C.URL_GET_KML+urlAddition);
 			break;
 		case R.id.bLogout:
 			// Updates the SharedPreferences.
