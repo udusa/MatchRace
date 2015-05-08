@@ -23,7 +23,6 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
-import de.micromata.opengis.kml.v_2_2_0.Kml;
 
 /**
  * AsyncTask for saving the KML file on SD memory.
@@ -36,8 +35,6 @@ public class SaveKmlTask extends AsyncTask<String, Integer, Map<Long, LatLng>> {
 	private String name, fullUserName;
 	private int kmlVer;
 
-    //TEST
-    //Kml kml = new Kml();
 
 
 	public SaveKmlTask(Context context, String name, String fullUserName, int kmlVer) {

@@ -25,7 +25,7 @@ public class MenuActivity extends Activity implements OnClickListener {
 	private String user = "", pass = "", event = "", fullUserName = "";
     private String urlAddition;
 	// Views.
-	private Button bMap, bKml1, bKml2, bLogout, bExit;
+	private Button bMap/*, bKml1, bKml2*/, bLogout, bExit;
 
 
 
@@ -56,14 +56,14 @@ public class MenuActivity extends Activity implements OnClickListener {
         urlAddition = "&Event="+event+"&User="+user;
 		// Initializing Buttons.
 		bMap = (Button) findViewById(R.id.bMap);
-		bKml1 = (Button) findViewById(R.id.bKml1);
-		bKml2 = (Button) findViewById(R.id.bKml2);
+		//bKml1 = (Button) findViewById(R.id.bKml1);
+		//bKml2 = (Button) findViewById(R.id.bKml2);
 		bLogout = (Button) findViewById(R.id.bLogout);
 		bExit = (Button) findViewById(R.id.bExit);
 
 		bMap.setOnClickListener(this);
-		bKml1.setOnClickListener(this);
-		bKml2.setOnClickListener(this);
+		//bKml1.setOnClickListener(this);
+		//bKml2.setOnClickListener(this);
 		bLogout.setOnClickListener(this);
 		bExit.setOnClickListener(this);
 	}
@@ -101,7 +101,7 @@ public class MenuActivity extends Activity implements OnClickListener {
 			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(intent);
 			break;
-		case R.id.bKml1:
+	/*	case R.id.bKml1:
 			bKml1.setEnabled(false);
 			Toast.makeText(this, "Please wait few seconds...", Toast.LENGTH_SHORT).show();
 
@@ -118,7 +118,7 @@ public class MenuActivity extends Activity implements OnClickListener {
 			SaveKmlTask saveKml2 = new SaveKmlTask(this, "SaveKmlTask", fullUserName, 2);
 			//saveKml2.execute(C.URL_HISTORY_TABLE, C.URL_CLIENTS_TABLE);
             saveKml2.execute(C.URL_GET_KML+urlAddition);
-			break;
+			break;*/
 		case R.id.bLogout:
 			// Updates the SharedPreferences.
 			SharedPreferences sp = getSharedPreferences(C.PREFS_USER, MODE_PRIVATE);
