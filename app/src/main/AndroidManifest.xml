@@ -37,19 +37,16 @@
             </intent-filter>
         </activity>
 
-        <!-- API Key using my PC -->
-        <!-- <meta-data
-            android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyAbk57eU-y_eB3ywDZanb5pAh-qOEGQB0o" /> -->
-
-        <!-- API Key using my Laptop -->
-        <!--meta-data
-            android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyBFtUeUEoMsCxaYoRpj6Hf55qIECKaL_a4"/!-->
-
+        <!-- DEBUG KEY -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyD-NkrkygEBuFkmduUhOlTAmWLeZ1tB3gE"/>
+            android:value="AIzaSyC7QFkYyiRh2XbFz9p1UepYrXUrOhaKPhg"/>
+        <!-- RELEASE KEY-->
+        <!--
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCEwiBtZ5W7Teuj4mghBFLCt0D3riAR-nQ"/>
+         -->
 
         <activity android:name="com.matchrace.matchrace.MenuActivity" >
         </activity>

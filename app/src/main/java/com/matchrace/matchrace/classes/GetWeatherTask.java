@@ -51,7 +51,8 @@ public class GetWeatherTask extends AsyncTask<String, Integer, String[]> {
     @Override
     protected void onPostExecute(String[] wind) {
         if (wind == null) return;
-        tvWindSpeed.setText(wind[0]);
+        double speed = Double.parseDouble(wind[0])*5.793624;
+        tvWindSpeed.setText(""+speed+" m/s");
         tvWindDeg.setText(wind[1]);
 
     }
