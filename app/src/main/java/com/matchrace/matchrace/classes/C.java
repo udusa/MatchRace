@@ -54,6 +54,7 @@ public class C {
     public static final String URL_GET_BUOYS = "http://bmr.comuv.com/androidGetBuoys.php?Table=events&Event=";
     public static final String URL_GET_CLIENT = "http://bmr.comuv.com/androidGetClients.php?Table=clients&Event=";
     public static final String URL_GET_KML = "http://bmr.comuv.com/androidGetKml.php?Table=history";
+    public static final String URL_GET_WEATHER = "http://api.openweathermap.org/data/2.5/weather?";//api.openweathermap.org/data/2.5/weather?lat=35&lon=139
     // Data constants.
 	public static final String APP_DIR = Environment.getExternalStorageDirectory().getPath() + "/BlindMatchRace/";
 }
