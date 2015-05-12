@@ -22,24 +22,28 @@ import com.matchrace.matchrace.modules.JsonReader;
 public class GetWeatherTask extends AsyncTask<String, Integer, String[]> {
 
     TextView tvWindSpeed, tvWindDeg;
-
+    private String[] wind;
     public GetWeatherTask(TextView _tvWindSpeed, TextView _tvWindDeg) {
         tvWindDeg = _tvWindDeg;
         tvWindSpeed = _tvWindSpeed;
+        wind = new String[2];
+        wind[0]="";
+        wind[1]="";
     }
 
     @Override
     protected String[] doInBackground(String... urls) {
 
-        String[] wind = new String[2];
+
         try {
             //JSONObject jsonWeather = readJsonFromUrl(urls[0]);
             JSONObject jsonWeather = JsonReader.readJsonFromUrl(urls[0]);
             JSONObject jsonWind = jsonWeather.getJSONObject("wind");
             String windSpeed = jsonWind.getString("speed");
             String windDeg = jsonWind.getString("deg");
-            wind[1] = windDeg;
             wind[0] = windSpeed;
+            wind[1] = windDeg;
+
             return wind;
         } catch (JSONException e) {
             return null;
@@ -51,7 +55,7 @@ public class GetWeatherTask extends AsyncTask<String, Integer, String[]> {
     @Override
     protected void onPostExecute(String[] wind) {
         if (wind == null) return;
-        double speed = Double.parseDouble(wind[0])*5.793624;
+        double speed = Double.parseDouble(wind[0]);
         tvWindSpeed.setText(""+speed+" m/s");
         tvWindDeg.setText(wind[1]);
 
@@ -88,4 +92,7 @@ public class GetWeatherTask extends AsyncTask<String, Integer, String[]> {
             return null;
         }
     }
+
+    public String getWindDeg(){return wind[1];}
+    public String getWindSpeed(){return wind[0];}
 }

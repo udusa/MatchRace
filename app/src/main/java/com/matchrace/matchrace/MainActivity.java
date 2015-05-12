@@ -140,6 +140,7 @@ public class MainActivity extends FragmentActivity implements LocationListener {
     @Override
     public void onLocationChanged(Location location) {
         if (!disableLocation) {
+
             // HandlerThread for sending the current location to DB.
             SendDataHThread thread = new SendDataHThread("UpdateClient");
             thread.setPriority(Process.THREAD_PRIORITY_BACKGROUND);
