@@ -49,7 +49,7 @@ public class AdminActivity extends FragmentActivity implements LocationListener,
     private Marker currentPosition;
     private GoogleMap googleMap;
     private TextView tvLat, tvLng, tvUser, tvSpeed, tvDirection, tvEvent;
-    private Button bBuoy1, bBuoy2, bBuoy3, bBuoy4, bBuoy5, bBuoy6, bBuoy7, bBuoy8, bBuoy9, bBuoy10,
+    private Button bBuoy1, bBuoy2, bBuoy3,/* bBuoy4, bBuoy5, bBuoy6, bBuoy7, bBuoy8, bBuoy9, bBuoy10,*/
             cancelButton, applyButton;
     private TimePicker time_picker;
     private DatePicker date_picker;
@@ -109,6 +109,7 @@ public class AdminActivity extends FragmentActivity implements LocationListener,
         bBuoy1 = (Button) findViewById(R.id.bBuoy1);
         bBuoy2 = (Button) findViewById(R.id.bBuoy2);
         bBuoy3 = (Button) findViewById(R.id.bBuoy3);
+        /*
         bBuoy4 = (Button) findViewById(R.id.bBuoy4);
         bBuoy5 = (Button) findViewById(R.id.bBuoy5);
         bBuoy6 = (Button) findViewById(R.id.bBuoy6);
@@ -116,6 +117,7 @@ public class AdminActivity extends FragmentActivity implements LocationListener,
         bBuoy8 = (Button) findViewById(R.id.bBuoy8);
         bBuoy9 = (Button) findViewById(R.id.bBuoy9);
         bBuoy10 = (Button) findViewById(R.id.bBuoy10);
+        */
         //<added code
         cancelButton = (Button) findViewById(R.id.cancel_button);
         applyButton = (Button) findViewById(R.id.apply_button);
@@ -127,6 +129,7 @@ public class AdminActivity extends FragmentActivity implements LocationListener,
         bBuoy1.setOnClickListener(this);
         bBuoy2.setOnClickListener(this);
         bBuoy3.setOnClickListener(this);
+        /*
         bBuoy4.setOnClickListener(this);
         bBuoy5.setOnClickListener(this);
         bBuoy6.setOnClickListener(this);
@@ -134,6 +137,7 @@ public class AdminActivity extends FragmentActivity implements LocationListener,
         bBuoy8.setOnClickListener(this);
         bBuoy9.setOnClickListener(this);
         bBuoy10.setOnClickListener(this);
+        */
         //<added code
         cancelButton.setOnClickListener(this);
         applyButton.setOnClickListener(this);
@@ -182,6 +186,7 @@ public class AdminActivity extends FragmentActivity implements LocationListener,
                 bBuoy1.setEnabled(true);
                 bBuoy2.setEnabled(true);
                 bBuoy3.setEnabled(true);
+                /*
                 bBuoy4.setEnabled(true);
                 bBuoy5.setEnabled(true);
                 bBuoy6.setEnabled(true);
@@ -189,6 +194,7 @@ public class AdminActivity extends FragmentActivity implements LocationListener,
                 bBuoy8.setEnabled(true);
                 bBuoy9.setEnabled(true);
                 bBuoy10.setEnabled(true);
+                */
                 cancelButton.setEnabled(true);
             }
 
@@ -249,6 +255,7 @@ public class AdminActivity extends FragmentActivity implements LocationListener,
                 bBuoy1.setEnabled(true);
                 bBuoy2.setEnabled(true);
                 bBuoy3.setEnabled(true);
+                /*
                 bBuoy4.setEnabled(true);
                 bBuoy5.setEnabled(true);
                 bBuoy6.setEnabled(true);
@@ -256,6 +263,7 @@ public class AdminActivity extends FragmentActivity implements LocationListener,
                 bBuoy8.setEnabled(true);
                 bBuoy9.setEnabled(true);
                 bBuoy10.setEnabled(true);
+                */
                 return;
             case R.id.apply_button:
                 applyButton.setEnabled(false);//for testing
@@ -285,6 +293,7 @@ public class AdminActivity extends FragmentActivity implements LocationListener,
                 bouyIndex = 2;
                 bBuoy3.setEnabled(false);
                 break;
+            /*
             case R.id.bBuoy4:
                 //fullBuoyName = C.BUOY_PREFIX + "4_" + event;
                 bouyIndex = 3;
@@ -320,6 +329,7 @@ public class AdminActivity extends FragmentActivity implements LocationListener,
                 bouyIndex = 9;
                 bBuoy10.setEnabled(false);
                 break;
+                */
         }
 
 

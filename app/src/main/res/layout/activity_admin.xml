@@ -9,7 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="30.77"
+        android:layout_weight="40.81"
         android:orientation="horizontal"
         android:weightSum="100" >
 
@@ -22,7 +22,7 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="20"
                 android:gravity="center_vertical"
@@ -32,14 +32,14 @@
             <TextView
                 android:id="@+id/tvLat"
                 android:layout_width="wrap_content"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="15"
                 android:text="" />
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="20"
                 android:gravity="center_vertical"
@@ -49,14 +49,14 @@
             <TextView
                 android:id="@+id/tvLng"
                 android:layout_width="wrap_content"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="10"
                 android:text="" />
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="15"
                 android:gravity="center_vertical"
@@ -66,7 +66,7 @@
             <TextView
                 android:id="@+id/tvUser"
                 android:layout_width="wrap_content"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="20"
                 android:text="" />
@@ -81,7 +81,7 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="20"
                 android:gravity="center_vertical|center_horizontal"
@@ -92,14 +92,14 @@
             <TextView
                 android:id="@+id/tvSpeed"
                 android:layout_width="wrap_content"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="15"
                 android:text="" />
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="20"
                 android:gravity="center_vertical|center_horizontal"
@@ -110,14 +110,14 @@
             <TextView
                 android:id="@+id/tvDirection"
                 android:layout_width="wrap_content"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="10"
                 android:text="" />
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="15"
                 android:gravity="center_vertical"
@@ -127,7 +127,7 @@
             <TextView
                 android:id="@+id/tvEvent"
                 android:layout_width="wrap_content"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="20"
                 android:text="" />
@@ -139,7 +139,7 @@
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="46.73" />
+        android:layout_weight="49.45" />
 
     <RelativeLayout
         android:orientation="horizontal"
@@ -171,9 +171,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="10"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:weightSum="100" >
+        android:gravity="bottom"
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/bBuoy1"
@@ -199,23 +198,26 @@
             android:enabled="false"
             android:text="@string/buoy_number_3" />
 
-        <Button
-            android:id="@+id/bBuoy4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="20"
-            android:enabled="false"
-            android:text="@string/buoy_number_4" />
+        <!--
+                <Button
+                    android:id="@+id/bBuoy4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="20"
+                    android:enabled="false"
+                    android:text="@string/buoy_number_4" />
 
-        <Button
-            android:id="@+id/bBuoy5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="20"
-            android:enabled="false"
-            android:text="@string/buoy_number_5" />
+                <Button
+                    android:id="@+id/bBuoy5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="20"
+                    android:enabled="false"
+                    android:text="@string/buoy_number_5" />
+                -->
     </LinearLayout>
 
+    <!--
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -266,6 +268,7 @@
 
 
     </LinearLayout>
+ -->
 
     <LinearLayout
         android:orientation="horizontal"
